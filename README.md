@@ -3,7 +3,7 @@
 
 目前部屬: E-Release(2021/12釋出)
 ## 規格
-根據OSC Bronze Release中的**Get Startted**教學中所開的規格是
+根據OSC Bronze Release中的**Getting Started**教學中所開的規格是
 ```=
 SMO:
 - CPU: 4
