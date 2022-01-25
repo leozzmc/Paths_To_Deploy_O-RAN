@@ -102,6 +102,8 @@ $ ./install.sh   //這次不需要init repo
 $ kubectl get pod -n onap
 ```
 ![image](https://user-images.githubusercontent.com/30616512/150942720-e7a6fd11-15c9-490e-ae38-37343eaaad32.png)
+![image](https://user-images.githubusercontent.com/30616512/150945278-2ad4e32a-e1f2-4b7b-bb63-284b443d28d5.png)
+*安裝成功*
 
 ### Non-RT RIC
 ## Near-RT-RIC
