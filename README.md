@@ -19,6 +19,7 @@ Near-RT RIC
 ```
 ## SMO
 部屬順序: K8S-Setting → ONAP → Non-RT-RIC → RIC-AUX → RIC-Infra
+
 https://wiki.o-ran-sc.org/display/GS/SMO+Installation
 
 ### K8S-Setting
@@ -65,5 +66,42 @@ $ kubectl get pods --all-namespaces
 
 ### ONAP
 
-## Non-RT RIC
+```
+$ cd dep/tools/onap
+$ ./install initlocalrepo
+```
+接著會開始一系列長久的安裝過程(3-4小時)
+而做完後通常很可能會卡在
+出現這樣的指令
+```
+0/7 SDNC-SDNR pods and 0/7 Message Router pods running
+```
+這時候如果去 get pod，會發現沒有pod在跑
+若使用
+```
+$ helm list
+```
+會發現 charts SDNC是build failed的，而經過stackoverflow的大神們解釋
+
+通常是做到這時，已經超出dockerhub的Pull限制了(匿名用戶每6小時只能pull 100次)
+
+因此需要登入你的dockerHub(登入用戶每6小時能夠pull 200次)
+```
+$ docker login 
+
+輸入你的username跟passwd
+```
+再次執行
+```
+$ ./install.sh   //這次不需要init repo
+```
+接下來的 畫面很可能是這樣
+![image](https://user-images.githubusercontent.com/30616512/150942406-4368ade8-d55b-4620-9695-969da1464be5.png)
+但實際去get pods，會發現其實只是pod還沒init完成或容器正在建立，大概再等一陣子就能完成(等了2小時)
+```
+$ kubectl get pod -n onap
+```
+![image](https://user-images.githubusercontent.com/30616512/150942720-e7a6fd11-15c9-490e-ae38-37343eaaad32.png)
+
+### Non-RT RIC
 ## Near-RT-RIC
