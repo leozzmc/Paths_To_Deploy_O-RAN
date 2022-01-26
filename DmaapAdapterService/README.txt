@@ -1,0 +1,100 @@
+# Run the Dmaap Adaptor Service Docker Container
+
+- application.yaml
+
+```
+spring:
+  profiles:
+    active: prod
+  main:
+    allow-bean-definition-overriding: true
+  aop:
+    auto: false
+management:
+  endpoints:
+    web:
+      exposure:
+        # Enabling of springboot actuator features. See springboot documentation.
+        include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+springdoc:
+  show-actuator: true
+logging:
+  # Configuration of logging
+  level:
+    ROOT: ERROR
+    org.springframework: ERROR
+    org.springframework.data: ERROR
+    org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
+    org.oran.dmaapadapter: INFO
+  file:
+    name: /var/log/dmaap-adaptor-service/application.log
+server:
+   # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.
+   # See springboot documentation.
+   port : 8435
+   http-port: 8084
+   ssl:
+      key-store-type: JKS
+      key-store-password: policy_agent
+      key-store: /opt/app/dmaap-adaptor-service/etc/cert/keystore.jks
+      key-password: policy_agent
+      key-alias: policy_agent
+app:
+  webclient:
+    # Configuration of the trust store used for the HTTP client (outgoing requests)
+    # The file location and the password for the truststore is only relevant if trust-store-used == true
+    # Note that the same keystore as for the server is used.
+    trust-store-used: false
+    trust-store-password: policy_agent
+    trust-store: /opt/app/dmaap-adaptor-service/etc/cert/truststore.jks
+    # Configuration of usage of HTTP Proxy for the southbound accesses.
+    # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
+    http.proxy-host:
+    http.proxy-port: 0
+  ics-base-url: https://information-service-container:8434
+  # Location of the component configuration file. The file will only be used if the Consul database is not used;
+  # configuration from the Consul will override the file.
+  configuration-filepath: /opt/app/dmaap-adaptor-service/data/application_configuration.json
+  dmaap-base-url: https://message-router:3905
+  # The url used to address this component. This is used as a callback url sent to other components.
+  dmaap-adapter-base-url: https://dmaapadapterservice:8435
+  # KAFKA boostrap server. This is only needed if there are Information Types that uses a kafkaInputTopic
+  kafka:
+    bootstrap-servers: message-router-kafka:9092
+```
+
+- application_configuration.json(without kafaka type)
+
+```
+
+{
+  "types": [
+     {
+        "id": "ExampleInformationType",
+        "dmaapTopicUrl": "/events/unauthenticated.dmaapadp.json/dmaapadapterproducer/msgs?timeout=15000&limit=100",
+        "useHttpProxy": false
+     }
+  ]
+}
+```
+- application_configuration.json(with kafaka type)
+
+```
+
+{
+  "types": [
+     {
+        "id": "ExampleInformationType",
+        "dmaapTopicUrl": "/events/unauthenticated.dmaapadp.json/dmaapadapterproducer/msgs?timeout=15000&limit=100",
+        "useHttpProxy": false
+     },
+     {
+      "id": "ExampleInformationTypeKafka",
+      "kafkaInputTopic": "unauthenticated.dmaapadp_kafka.text",
+      "useHttpProxy": false
+   }
+  ]
+}
+```
+
+

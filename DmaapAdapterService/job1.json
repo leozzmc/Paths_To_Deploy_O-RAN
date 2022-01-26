@@ -1,0 +1,8 @@
+
+{
+  "info_type_id": "ExampleInformationTypeKafka",
+  "job_result_uri": "<url-for-jod-data-delivery>",
+  "job_owner": "job1owner",
+  "status_notification_uri": "<url-for-jod-status-delivery>",
+  "job_definition": {}
+}
