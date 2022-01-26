@@ -292,7 +292,126 @@ $ docker build -t o-ran-sc/nonrtric-controlpanel:2.3.0-SNAPSHOT .
 ```
 $ docker network create nonrtric-docker-net
 ```
-- Run the **Policy Management Service** Docker Container
+- **Run the Policy Management Service Docker Container**
+
+```
+$ docker run --rm -v <absolute-path-to-file>/application_configuration.json:/opt/app/policy-agent/data/application_configuration.json -p 8081:8081 -p 8433:8433 --network=nonrtric-docker-net --name=policy-agent-container nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-a1-policy-management-service:2.3.0
+```
+
+- verify running
+
+
+```
+$  curl localhost:8081/a1-policy/v2/rics
+```
+但因為ric_simlator還沒runing起來所以預期output應該都要是 *UNAVAILABLE*
+
+- **Run the SDNC A1 Controller Docker Container (ONAP SDNC**)
+
+```
+$ docker-compose up
+```
+透過瀏覽器打開url，以確認SDNC A1 Controller 啟用並運行
+http://localhost:8282/apidoc/explorer/index.html#/controller%20A1-ADAPTER-API
+Username/password: admin/Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+
+A1 Controller的 Karaf logs可以透過以下指令查看
+```
+$ docker exec a1controller sh -c "tail -f /opt/opendaylight/data/log/karaf.log"
+```
+
+-  **Run the Near-RT RIC A1 Simulator Docker Containers**
+  - RIC1
+  ```
+  $ docker run --rm -p 8085:8085 -p 8185:8185 -e A1_VERSION=OSC_2.1.0 -e ALLOW_HTTP=true --network=nonrtric-docker-net --name=ric1 nexus3.o-ran-sc.org:10002/o-ran-sc/a1-simulator:2.2.0
+  ```
+  - RIC2
+  ```
+  $ docker run --rm -p 8086:8085 -p 8186:8185 -e A1_VERSION=STD_1.1.3 -e ALLOW_HTTP=true --network=nonrtric-docker-net --name=ric2 nexus3.o-ran-sc.org:10002/o-ran-sc/a1-simulator:2.2.0
+  ```
+  - RIC3 
+  ```
+  $ docker run --rm -p 8087:8085 -p 8187:8185 -e A1_VERSION=STD_2.0.0 -e ALLOW_HTTP=true --network=nonrtric-docker-net --name=ric3 nexus3.o-ran-sc.org:10002/o-ran-sc/a1-simulator:2.2.0
+  ```
+  等待幾分鐘讓Policy Management Service去同步RICs
+  
+  - verify
+  ```
+  $ curl localhost:8081/a1-policy/v2/rics
+  ```
+  應會回傳 *AVAILABLE*
+  預期輸出:
+  ```
+  {"rics":[{"ric_id":"ric1","managed_element_ids":["kista_1","kista_2"],"policytype_ids":[],"state":"AVAILABLE"},{"ric_id":"ric3","managed_element_ids":["kista_5","kista_6"],"policytype_ids":[],"state":"AVAILABLE"},{"ric_id":"ric2","managed_element_ids":["kista_3","kista_4"],"policytype_ids":[""],"state":"AVAILABLE"}]}
+  ```
+- 上傳Policy Type 到ric1
+
+```
+$ 
+curl -X PUT -v "http://localhost:8085/a1-p/policytypes/123" -H "accept: application/json" \
+ -H "Content-Type: application/json" --data-binary @osc_pt1.json
+```
+- 上傳Policy Type 到ric3
+
+```
+$ curl -X PUT -v "http://localhost:8087/policytype?id=std_pt1" -H "accept: application/json"  -H "Content-Type: application/json" --data-binary @std_pt1.json
+```
+response code應該都要是201
+- verify
+
+```
+$  curl localhost:8081/a1-policy/v2/policy-types
+```
+預期回應:
+```
+{"policytype_ids":["","123","std_pt1"]}
+```
+- **Run the Information Coordinator Service Docker Container**
+
+```
+$ docker run --rm -p 8083:8083 -p 8434:8434 --network=nonrtric-docker-net --name=information-service-container nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-information-coordinator-service:1.2.0
+```
+
+- verify
+
+```
+$ curl localhost:8083/data-producer/v1/info-types
+```
+Expected output: `[ ]`
+
+- **Run the Non-RT RIC Gateway**
+
+```
+$ docker run --rm -v <absolute-path-to-config-file>/application.yaml:/opt/app/nonrtric-gateway/config/application.yaml -p 9090:9090 --network=nonrtric-docker-net --name=nonrtric-gateway  nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-gateway:1.0.0
+```
+- 確認是否可藉由Gateway存取到服務
+```
+$ curl localhost:9090/a1-policy/v2/rics
+$ curl localhost:9090/data-producer/v1/info-types
+```
+預期output
+
+```
+{"rics":[{"ric_id":"ric1","managed_element_ids":["kista_1","kista_2"],"policytype_ids":["123"],"state":"AVAILABLE"},{"ric_id":"ric3","managed_element_ids":["kista_5","kista_6"],"policytype_ids":["std_pt1"],"state":"AVAILABLE"},{"ric_id":"ric2","managed_element_ids":["kista_3","kista_4"],"policytype_ids":[""],"state":"AVAILABLE"}]}
+
+[ ]
+```
+
+- **Run the Non-RT RIC Control Panel**
+
+```
+$ docker run --rm -v <absolute-path-to-config-file>/nginx.conf:/etc/nginx/nginx.conf -p 8080:8080 --network=nonrtric-docker-net --name=control-panel  nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-controlpanel:2.3.0
+```
+control panel URL: http://localhost:8080/
+
+控制面板頁面
+![image](https://user-images.githubusercontent.com/30616512/151132941-19a79ebe-7396-4d0f-b7fd-2877c250dcfe.png)
+
+可在Control Panel中對個別RIC建立不同優先級的Policy
+![image](https://user-images.githubusercontent.com/30616512/151133068-a5dcc973-6272-4b33-b6cd-9b0e1c7bac8d.png)
+![image](https://user-images.githubusercontent.com/30616512/151133084-13dd9743-7d06-4daa-a707-e5772f07ba44.png)
+
+
 
 ### 實際部屬情況
 |Components|deployment|Description|
