@@ -1,0 +1,62 @@
+version: '3'
+ 
+networks:
+  default:
+    external: true
+    name: nonrtric-docker-net
+ 
+services:
+  db:
+    image: nexus3.o-ran-sc.org:10001/mariadb:10.5
+    container_name: sdncdb
+    networks:
+      - default
+    ports:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=itsASecret
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_USER=sdnctl
+      - MYSQL_PASSWORD=gamma
+      - MYSQL_DATABASE=sdnctl
+    logging:
+      driver:   "json-file"
+      options:
+        max-size: "30m"
+        max-file: "5"
+ 
+  a1controller:
+    image: nexus3.onap.org:10002/onap/sdnc-image:2.2.3
+    depends_on :
+      - db
+    container_name: a1controller
+    networks:
+      - default
+    entrypoint: ["/opt/onap/sdnc/bin/startODL.sh"]
+    ports:
+      - 8282:8181
+      - 8443:8443
+    links:
+      - db:dbhost
+      - db:sdnctldb01
+      - db:sdnctldb02
+    environment:
+      - MYSQL_ROOT_PASSWORD=itsASecret
+      - MYSQL_USER=sdnctl
+      - MYSQL_PASSWORD=gamma
+      - MYSQL_DATABASE=sdnctl
+      - SDNC_CONFIG_DIR=/opt/onap/sdnc/data/properties
+      - SDNC_BIN=/opt/onap/sdnc/bin
+      - ODL_CERT_DIR=/tmp
+      - ODL_ADMIN_USERNAME=admin
+      - ODL_ADMIN_PASSWORD=Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+      - ODL_USER=admin
+      - ODL_PASSWORD=Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+      - SDNC_DB_INIT=true
+      - A1_TRUSTSTORE_PASSWORD=a1adapter
+      - AAI_TRUSTSTORE_PASSWORD=changeit
+    logging:
+      driver:   "json-file"
+      options:
+        max-size: "30m"
+        max-file: "5"

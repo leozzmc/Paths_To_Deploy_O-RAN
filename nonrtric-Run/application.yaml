@@ -1,0 +1,40 @@
+server:
+  port: 9090
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+        wiretap: true
+      httpserver:
+        wiretap: true
+      routes:
+      - id: A1-Policy
+        uri: https://policy-agent-container:8433
+        predicates:
+        - Path=/a1-policy/**
+      - id: A1-EI-P
+        uri: https://information-service-container:8434
+        predicates:
+        - Path=/data-producer/**
+      - id: A1-EI-C
+        uri: https://information-service-container:8434
+        predicates:
+        - Path=/data-consumer/**
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "gateway,loggers,logfile,health,info,metrics,threaddump,heapdump"
+logging:
+  level:
+    ROOT: ERROR
+    org.springframework: ERROR
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: INFO
+  file:
+    name: /var/log/nonrtric-gateway/application.log
