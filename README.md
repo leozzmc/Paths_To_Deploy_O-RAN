@@ -241,7 +241,48 @@ mvn clean install -Dmaven.test.skip=true
 其實在這可以手動build /nonrtric/dmaap-mediator-producer/build_and_test.sh
 
 成功畫面:
+
 ![](https://i.imgur.com/ktvJjII.png)
+
+最後檢查 docker images
+![image](https://user-images.githubusercontent.com/30616512/151091603-4299cbce-e16b-485b-9f40-662f8ad9da7e.png)
+
+#### NonRTRIC Docker Image List(E Release)
+|Components|Release Image and Version Tag|Manual snapshot and version tag|
+|---------|---------|--------|
+|App Catalogue Service*|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-r-app-catalogue:1.0.1|	o-ran-sc/nonrtric-r-app-catalogue:1.1.0-SNAPSHOT|
+|Dmaap Adaptor Service|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-dmaap-adaptor:1.0.0|o-ran-sc/nonrtric-dmaap-adaptor:1.0.0-SNAPSHOT|
+|Dmaap Mediator Producer|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-dmaap-mediator-producer:1.0.0|o-ran-sc/nonrtric-dmaap-mediator-producer:1.0.0-SNAPSHOT|
+|Gateway*|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-gateway:1.0.0|o-ran-sc/nonrtric-gateway:1.1.0-SNAPSHOT|
+|Helm Manager|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-helm-manager:1.1.0|o-ran-sc/nonrtric-helm-manager:1.1.0-SNAPSHOT|
+|Information Coordinator Service|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-information-coordinator-service:1.2.0|o-ran-sc/nonrtric-information-coordinator-service:1.2.0-SNAPSHOT|
+|Near-RT RIC A1 Simulator|nexus3.o-ran-sc.org:10002/o-ran-sc/a1-simulator:2.2.0|o-ran-sc/a1-simulator:latest|
+|Non-RT RIC Control Panel|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-controlpanel:2.3.0|o-ran-sc/nonrtric-controlpanel:2.3.0-SNAPSHOT|
+|Policy Management Service|nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-a1-policy-management-service:2.3.0|o-ran-sc/nonrtric-a1-policy-management-service:2.3.0-SNAPSHOT|
+|SDNC A1-Controller|nexus3.onap.org:10002/onap/sdnc-image:2.2.3|Use release version|
+
+- Build near-rt-ric-simulator container
+
+```
+$ git clone "https://gerrit.o-ran-sc.org/r/sim/a1-interface"
+$ cd a1-interface/near-rt-ric-simulator
+$ docker build -t near-rt-ric-simulator:latest .
+```
+
+- Build nonrtric / Control panel and gateway containers
+
+```
+$ git clone "https://gerrit.o-ran-sc.org/r/portal/nonrtric-controlpanel" -b e-release
+$ cd nonrtric-controlpanel
+$ cd nonrtric-gateway
+$ mvn clean install  -Dmaven.test.skip=true
+$ docker build --build-arg JAR=nonrtric-gateway-1.1.0-SNAPSHOT.jar -t o-ran-sc/nonrtric-gateway:1.1.0-SNAPSHOT .
+ 
+$ cd ../webapp-frontend
+$ docker build -t o-ran-sc/nonrtric-controlpanel:2.3.0-SNAPSHOT .
+```
+最後透過 `docker images ` 檢查docker可用image
+
 
 #### 透過Docker-Run
 > https://wiki.o-ran-sc.org/display/RICNR/Release+E+-+Run+in+Docker
