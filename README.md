@@ -107,6 +107,147 @@ $ kubectl get pod -n onap
 *安裝成功*
 
 ### Non-RT RIC
+nonrtric的安裝方式有好幾條路
+1. 透過Kubernetes裝
+2. 透過docker裝
+
+#### 透過Kubernetes
+```
+$ sudo /dep/bin/deploy-nonrtric -f  /dep/RECIPE/NONRTRIC/example-recipe.yaml
+```
+等待安裝部屬
+但D Release以及E Release都會卡在這
+![image](https://user-images.githubusercontent.com/30616512/151089763-7842abc3-03e8-4838-bb89-dfdb8e7d40ba.png)
+
+#### 透過Docker-Build
+> https://wiki.o-ran-sc.org/display/RICNR/Release+E+-+Build
+
+- prerequirement
+
+```
+- docker (latest)
+- docker-compose
+- java 11
+- Maven 3.6
+- golang(v1.13.8)(v1.17)都要裝
+```
+
+- docker-compose
+```
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ docker-compose
+```
+若docker-compose沒反應
+```
+$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+若還是沒反應，就手動去網頁仔下來，然後放到 /usr/local/bin，檔名取為docker-compose
+
+- java 11
+> https://www.cjavapy.com/article/90/
+
+```
+# Build from binary
+$ wget https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
+# Build from apt
+$ sudo apt install openjdk-11-jre-headless
+
+$ mkidir /usr/local/jdk
+$ tar -zxf openjdk-11.0.1_linux-x64_bin.tar.gz -C /usr/local/jdk
+
+#設定Java_HOME
+$ echo "JAVA_HOME=/usr/local/jdk/jdk-11.0.1" | sudo tee -a ~/.bash_profile\
+&& echo "export JAVA_HOME" \
+| sudo tee -a ~/.bash_profile
+
+$ echo $JAVA_HOME
+
+$ echo "PATH=$PATH:$JAVA_HOME/bin" | sudo tee -a ~/.bash_profile \
+&& "export PATH" | sudo tee -a ~/.bash_profile && source ~/.bash_profile
+
+$ java --version
+
+```
+
+- maven
+
+```
+$ sudo apt install maven
+```
+- [settings.xml](https://git.onap.org/oparent/plain/settings.xml)
+
+將檔案存成settings.xml，存到 `~/.m2/settings.xml`
+
+- golang
+[教學](https://blog.csdn.net/qq_33867131/article/details/106853024)
+```=
+--ver: 1.13.8---
+$ wget https://go.dev/dl/go1.13.8.linux-amd64.tar.gz
+$ tar -zxvf go1.13.8.linux-amd64.tar.gz -C /usr/local
+
+
+$ sudo vim /etc/profile
+# 在最後面加上路徑
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
+
+$ source /etc/profile
+$ sudo vim ~/.bashrc
+# 最下面加上
+source /etc/profile
+
+#重新載入bashrc
+$ .~/.bashrc
+
+$ go version
+
+---ver: 1.17---
+$ wget https://go.dev/dl/go1.17.linux-amd64.tar.gz
+$ cd /usr/local
+$ mkdir go-1.17
+$ tar -zxvf go1.17.linux-amd64.tar.gz -C /usr/local/go-1.17
+
+#修改/etc/profile
+加上 export GOROOT=/usr/local/go-1.17/go
+$ source /etc/profile
+$ go version
+```
+在編譯nonrtric container時，會出現go版本問題
+解法: 編譯卡在哪個版本就改環境變數再去source，來切換版本
+最終就能成功
+
+-  Build Code
+```=
+git clone "https://gerrit.o-ran-sc.org/r/nonrtric"
+
+cd nonrtric
+# 這裡開始會碰到超多錯誤
+mvn clean install -Dmaven.test.skip=true
+```
+最多出錯的地方會是 /nonrtric/dmaap-mediator-producer/
+
+要去/stub內去每個裡面都下`go build` 以及 `go mod tidy`
+
+![](https://i.imgur.com/XDf3vz6.png)
+
+這時候可能會需要去 /etc/profile去切換go的版本，記得切換要用source指令
+
+最後出來到/dmaap-mediator中 `go-build` 以及 `go mod tidy`
+
+其實在這可以手動build /nonrtric/dmaap-mediator-producer/build_and_test.sh
+
+成功畫面:
+![](https://i.imgur.com/ktvJjII.png)
+
+#### 透過Docker-Run
+> https://wiki.o-ran-sc.org/display/RICNR/Release+E+-+Run+in+Docker
+
+
+
 ## Near-RT-RIC
 這份pdf救了我
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
