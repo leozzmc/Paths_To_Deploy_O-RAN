@@ -294,7 +294,17 @@ $ docker network create nonrtric-docker-net
 ```
 - Run the **Policy Management Service** Docker Container
 
-
+### 實際部屬情況
+|Components|deployment|Description|
+|---------|---------|-------------|
+|App Catalogue Service*|❎|error: Connet to localhost:3904 failed: Connectionn refused|
+|Dmaap Adaptor Service|Not deploy yet||
+|Dmaap Mediator Producer|Not deploy yet||
+|Gateway*|✅|運作正常|
+|Near-RT RIC A1 Simulator|✅|運作正常|
+|Non-RT RIC Control Panel|✅|運作正常|
+|Policy Management Service|✅|運作正常|
+|SDNC A1-Controller|✅|運作正常|
 
 ## Near-RT-RIC
 這份pdf救了我
