@@ -1,0 +1,7 @@
+{
+  "info_type_id": "STD_Fault_Messages",
+  "job_result_uri": "<url-for-job-data-delivery>",
+  "job_owner": "job3owner",
+  "status_notification_uri": "<url-for-job-status-delivery>",
+  "job_definition": {}
+}
