@@ -106,7 +106,10 @@ $ kubectl get pod -n onap
 
 *安裝成功*
 
+
+
 ### Non-RT RIC
+![image](https://user-images.githubusercontent.com/30616512/151140124-9ed8e412-6e12-468a-8812-4b9264716768.png)
 nonrtric的安裝方式有好幾條路
 1. 透過Kubernetes裝
 2. 透過docker裝
@@ -425,6 +428,8 @@ control panel URL: http://localhost:8080/
 |Non-RT RIC Control Panel|✅|運作正常|
 |Policy Management Service|✅|運作正常|
 |SDNC A1-Controller|✅|運作正常|
+
+![map (6)](https://user-images.githubusercontent.com/30616512/151141547-64c91848-b332-449d-b492-ec45ffeed6f1.png)
 
 ## Near-RT-RIC
 這份pdf救了我
