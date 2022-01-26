@@ -287,6 +287,13 @@ $ docker build -t o-ran-sc/nonrtric-controlpanel:2.3.0-SNAPSHOT .
 #### 透過Docker-Run
 > https://wiki.o-ran-sc.org/display/RICNR/Release+E+-+Run+in+Docker
 
+- Create a private docker network.
+
+```
+$ docker network create nonrtric-docker-net
+```
+- Run the **Policy Management Service** Docker Container
+
 
 
 ## Near-RT-RIC
