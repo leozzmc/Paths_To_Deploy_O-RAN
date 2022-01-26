@@ -403,10 +403,13 @@ $ docker run --rm -v <absolute-path-to-config-file>/nginx.conf:/etc/nginx/nginx.
 control panel URL: http://localhost:8080/
 
 控制面板頁面
+
 ![image](https://user-images.githubusercontent.com/30616512/151132941-19a79ebe-7396-4d0f-b7fd-2877c250dcfe.png)
 
 可在Control Panel中對個別RIC建立不同優先級的Policy
+
 ![image](https://user-images.githubusercontent.com/30616512/151133068-a5dcc973-6272-4b33-b6cd-9b0e1c7bac8d.png)
+
 ![image](https://user-images.githubusercontent.com/30616512/151133084-13dd9743-7d06-4daa-a707-e5772f07ba44.png)
 
 
