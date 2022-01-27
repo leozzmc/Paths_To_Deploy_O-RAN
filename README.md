@@ -659,6 +659,60 @@ karaf type
 |SDNC A1-Controller|✅|運作正常|
 
 ![map (6)](https://user-images.githubusercontent.com/30616512/151141547-64c91848-b332-449d-b492-ec45ffeed6f1.png)
+ 
+
+## O1 Interface
+> Install : https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881890
+> Test: https://wiki.o-ran-sc.org/display/SMO/How+to+test+the+O1+interface
+ 
+ 
+[o1-netconf.zip](https://github.com/leozzmc/Paths_To_Deploy_O-RAN/files/7948743/o1-netconf.zip)
+
+```=
+$ unzip o1-netconf.zip
+$ cd client
+$ docker-compose up -d
+```
+要等一陣子
+ 
+跑完後的樣子
+![image](https://user-images.githubusercontent.com/30616512/151318804-9b915436-587d-48c2-9930-5d6bfeab1a53.png)
+
+check status
+```=
+docker-compose ps
+```
+預期輸出結果
+![image](https://user-images.githubusercontent.com/30616512/151319044-2432e69b-96f7-48e1-b595-ef86dfb8ed67.png)
+
+結果我的
+![](https://i.imgur.com/Wv2cwWA.png)
+沒有 sdnr、sdnrdb
+
+突然想到之前在裝onap的時候卡住的地方
+![](https://i.imgur.com/gu8CRdZ.png)
+```=
+kubectl describe pod dev-sdnc-0 -n onap
+```
+
+![](https://i.imgur.com/8CRbhHP.png)
+port 似乎被他們佔用了
+ 
+總之先試試url
+> http://<host_ip>:8181/odlux/index.html
+> username/password: admin/ Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+
+進去了
+![](https://i.imgur.com/0MkVWco.png)
+而
+http://<host_ip>:8181/apidoc/explorer/index.html
+這是api文件
+![](https://i.imgur.com/udUyTez.png)
+
+Add Maintainenece
+![](https://i.imgur.com/TVk002K.png)
+
+ 
 
 ## Near-RT-RIC
 這份pdf救了我
