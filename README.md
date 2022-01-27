@@ -677,13 +677,17 @@ $ docker-compose up -d
 要等一陣子
  
 跑完後的樣子
+
 ![image](https://user-images.githubusercontent.com/30616512/151318804-9b915436-587d-48c2-9930-5d6bfeab1a53.png)
 
 check status
+
 ```=
 docker-compose ps
 ```
+
 預期輸出結果
+
 ![image](https://user-images.githubusercontent.com/30616512/151319044-2432e69b-96f7-48e1-b595-ef86dfb8ed67.png)
 
 結果我的
