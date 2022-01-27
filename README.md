@@ -687,31 +687,41 @@ docker-compose ps
 ![image](https://user-images.githubusercontent.com/30616512/151319044-2432e69b-96f7-48e1-b595-ef86dfb8ed67.png)
 
 結果我的
+
 ![](https://i.imgur.com/Wv2cwWA.png)
+
 沒有 sdnr、sdnrdb
 
 突然想到之前在裝onap的時候卡住的地方
+
 ![](https://i.imgur.com/gu8CRdZ.png)
+
 ```=
 kubectl describe pod dev-sdnc-0 -n onap
 ```
 
 ![](https://i.imgur.com/8CRbhHP.png)
+
 port 似乎被他們佔用了
  
 總之先試試url
+
 > http://<host_ip>:8181/odlux/index.html
+
 > username/password: admin/ Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
 
 進去了
-![](https://i.imgur.com/0MkVWco.png)
-而
-http://<host_ip>:8181/apidoc/explorer/index.html
-這是api文件
-![](https://i.imgur.com/udUyTez.png)
+ 
+![image](https://user-images.githubusercontent.com/30616512/151319631-dc7dc530-e995-4e8f-b98a-2712566b7702.png)
+
+http://<host_ip>:8181/apidoc/explorer/index.html 這是api文件
+
+![image](https://user-images.githubusercontent.com/30616512/151319595-a0c096c3-8b04-4937-ae6f-d5d2a5d134ea.png)
+ 
 
 Add Maintainenece
-![](https://i.imgur.com/TVk002K.png)
+
+![image](https://user-images.githubusercontent.com/30616512/151319568-4732a483-a62f-40f0-aa51-b91aa938d018.png)
 
  
 
