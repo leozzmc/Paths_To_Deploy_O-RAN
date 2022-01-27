@@ -444,9 +444,13 @@ $ docker run \
     -v $(pwd)/config/application.yaml:/etc/app/helm-manager/application.yaml \
     nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-helm-manager:1.1.0
 ```
+
 會出現error
+
 **Connect to localhost:3904 failed: Connection refused**
+
 **ERROR 1 --- [pool-2-thread-1] c.a.n.c.c.i.CambriaSimplerBatchPublisher : PUB_CHRONIC_FAILURE: Send failure count is 59, above threshold 10.**
+
 而將問題在底下留言後他們的回覆是
 ![image](https://user-images.githubusercontent.com/30616512/151308216-8e31ec6e-9de3-4eaa-8af2-e738d295a36c.png)
 大意是:
@@ -455,6 +459,161 @@ $ docker run \
 - 預設為localhost(容器內的)，因此內部的http call 在外部不可見
 - 先忽略此錯誤
 
+#### **Run the Dmaap Adaptor Service Docker Container**
+建一個dmaapAdapter 目錄來放config檔
+- application.yaml
+  ```=
+  spring:
+    profiles:
+      active: prod
+    main:
+      allow-bean-definition-overriding: true
+    aop:
+      auto: false
+  management:
+    endpoints:
+      web:
+        exposure:
+          # Enabling of springboot actuator features. See springboot documentation.
+          include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+  springdoc:
+    show-actuator: true
+  logging:
+    # Configuration of logging
+    level:
+      ROOT: ERROR
+      org.springframework: ERROR
+      org.springframework.data: ERROR
+      org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
+      org.oran.dmaapadapter: INFO
+    file:
+      name: /var/log/dmaap-adaptor-service/application.log
+  server:
+     # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.
+     # See springboot documentation.
+     port : 8435
+     http-port: 8084
+     ssl:
+        key-store-type: JKS
+        key-store-password: policy_agent
+        key-store: /opt/app/dmaap-adaptor-service/etc/cert/keystore.jks
+        key-password: policy_agent
+        key-alias: policy_agent
+  app:
+    webclient:
+      # Configuration of the trust store used for the HTTP client (outgoing requests)
+      # The file location and the password for the truststore is only relevant if trust-store-used == true
+      # Note that the same keystore as for the server is used.
+      trust-store-used: false
+      trust-store-password: policy_agent
+      trust-store: /opt/app/dmaap-adaptor-service/etc/cert/truststore.jks
+      # Configuration of usage of HTTP Proxy for the southbound accesses.
+      # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
+      http.proxy-host:
+      http.proxy-port: 0
+    ics-base-url: https://information-service-container:8434
+    # Location of the component configuration file. The file will only be used if the Consul database is not used;
+    # configuration from the Consul will override the file.
+    configuration-filepath: /opt/app/dmaap-adaptor-service/data/application_configuration.json
+    dmaap-base-url: https://message-router:3905
+    # The url used to address this component. This is used as a callback url sent to other components.
+    dmaap-adapter-base-url: https://dmaapadapterservice:8435
+    # KAFKA boostrap server. This is only needed if there are Information Types that uses a kafkaInputTopic
+    kafka:
+      bootstrap-servers: message-router-kafka:9092
+  ```
+- application_configuration.json(使用with karaf type)
+  - application_configuration.json(without karaf type)
+    ```=
+    {
+      "types": [
+         {
+            "id": "ExampleInformationType",
+            "dmaapTopicUrl": "/events/unauthenticated.dmaapadp.json/dmaapadapterproducer/msgs?timeout=15000&limit=100",
+            "useHttpProxy": false
+         }
+      ]
+    }
+    ```
+  - application_configuration(with karaf type)
+     ```=
+     {
+       "types": [
+          {
+             "id": "ExampleInformationType",
+             "dmaapTopicUrl": "/events/unauthenticated.dmaapadp.json/dmaapadapterproducer/msgs?timeout=15000&limit=100",
+             "useHttpProxy": false
+          },
+          {
+           "id": "ExampleInformationTypeKafka",
+           "kafkaInputTopic": "unauthenticated.dmaapadp_kafka.text",
+           "useHttpProxy": false
+        }
+       ]
+     }
+     ```
+ Start the Dmaap Adaptor Service in a **separate shell**
+ ```=
+ docker run --rm \
+-v <absolute-path-to-config-file>/application.yaml:/opt/app/dmaap-adaptor-service/config/application.yaml \
+-v <absolute-path-to-config-file>/application_configuration.json:/opt/app/dmaap-adaptor-service/data/application_configuration.json \
+-p 9086:8084 -p 9087:8435 --network=nonrtric-docker-net --name=dmaapadapterservice  nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-dmaap-adaptor:1.0.0
+ ```
+ Setup jobs to produce data according to the types in application_configuration.json
+ Create a file job1.json with the job definition (replace paths <url-for-jod-data-delivery> and <url-for-jod-status-delivery> to fit your environment:
+ 這裡替換成以下url
+ 
+- job1.json
+ ```=
+ {
+   "info_type_id": "ExampleInformationType",
+   "job_result_uri": "http://localhost:8083/data-consumer/v1/info-jobs/job1",
+   "job_owner": "job1owner",
+   "status_notification_uri": "http://localhost:8434/A1-EI/v1/eijobs/job1/status",
+   "job_definition": {}
+ }
+ ```
+- Create job1 for type 'ExampleInformationType'
+```
+curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job1 --data-binary @job1.json
+```=
+- Check that the job has been enabled - job accepted by the Dmaap Adaptor Service
+原本的:
+```=
+curl -k https://informationservice:8434/A1-EI/v1/eijobs/job1/status
+```
+但這樣會這樣:(一定還是要tls)
+```=
+curl -k https://localhost:8434/A1-EI/v1/eijobs/job1/status
+```
+![](https://i.imgur.com/BrtdD5M.png)
+
+karaf type
+官方的url給錯，應該要是job2，不是job1
+- job2.json
+```=
+{
+  "info_type_id": "ExampleInformationTypeKafka",
+  "job_result_uri":"http://localhost:8083/data-consumer/v1/info-jobs/job2",
+  "job_owner": "job1owner",
+  "status_notification_uri": "http://localhost:8434/A1-EI/v1/eijobs/job2/status",
+  "job_definition": {}
+}
+```
+- Create job2 for type 'ExampleInformationType'
+```
+curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job2 --data-binary @job2.json
+```
+- Check that the job has been enabled - job accepted by the Dmaap Adaptor Service
+```
+curl -k https://localhost:8434/A1-EI/v1/eijobs/job2/status
+{"eiJobStatus":"ENABLED"}
+````
+
+![](https://i.imgur.com/U7BLHD8.png)
+
+後續的 dmaapMediator Producer Container則因為port分配問題沒有run成功
+可能下一版本的release會更正
 
 ### Ports
 |Components |Port expose to localhost (http/https)|
