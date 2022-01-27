@@ -552,18 +552,23 @@ $ docker run \
        ]
      }
      ```
- Start the Dmaap Adaptor Service in a **separate shell**
- ```=
+
+Start the Dmaap Adaptor Service in a **separate shell**
+
+```=
  docker run --rm \
 -v <absolute-path-to-config-file>/application.yaml:/opt/app/dmaap-adaptor-service/config/application.yaml \
 -v <absolute-path-to-config-file>/application_configuration.json:/opt/app/dmaap-adaptor-service/data/application_configuration.json \
 -p 9086:8084 -p 9087:8435 --network=nonrtric-docker-net --name=dmaapadapterservice  nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-dmaap-adaptor:1.0.0
  ```
- Setup jobs to produce data according to the types in application_configuration.json
- Create a file job1.json with the job definition (replace paths <url-for-jod-data-delivery> and <url-for-jod-status-delivery> to fit your environment:
+
+Setup jobs to produce data according to the types in application_configuration.json
+
+Create a file job1.json with the job definition (replace paths <url-for-jod-data-delivery> and <url-for-jod-status-delivery> to fit your environment:
  這裡替換成以下url
  
 - job1.json
+
  ```=
  {
    "info_type_id": "ExampleInformationType",
@@ -573,46 +578,57 @@ $ docker run \
    "job_definition": {}
  }
  ```
+
 - Create job1 for type 'ExampleInformationType'
-```
-curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job1 --data-binary @job1.json
-```=
+
+ ```=
+ curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job1 --data-binary @job1.json
+ ```
+
 - Check that the job has been enabled - job accepted by the Dmaap Adaptor Service
 原本的:
-```=
-curl -k https://informationservice:8434/A1-EI/v1/eijobs/job1/status
-```
+
+ ```=
+  curl -k https://informationservice:8434/A1-EI/v1/eijobs/job1/status
+  ```
 但這樣會這樣:(一定還是要tls)
-```=
-curl -k https://localhost:8434/A1-EI/v1/eijobs/job1/status
-```
+
+ ```=
+  curl -k https://localhost:8434/A1-EI/v1/eijobs/job1/status
+ ```
+
 ![](https://i.imgur.com/BrtdD5M.png)
 
 karaf type
+
 官方的url給錯，應該要是job2，不是job1
+
 - job2.json
-```=
-{
+
+ ```=
+ {
   "info_type_id": "ExampleInformationTypeKafka",
   "job_result_uri":"http://localhost:8083/data-consumer/v1/info-jobs/job2",
   "job_owner": "job1owner",
   "status_notification_uri": "http://localhost:8434/A1-EI/v1/eijobs/job2/status",
   "job_definition": {}
-}
-```
+ }
+ ```
 - Create job2 for type 'ExampleInformationType'
-```
-curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job2 --data-binary @job2.json
-```
+ ```=
+ curl -X PUT -H Content-Type:application/json http://localhost:8083/data-consumer/v1/info-jobs/job2 --data-binary @job2.json
+ ```
+
 - Check that the job has been enabled - job accepted by the Dmaap Adaptor Service
-```
-curl -k https://localhost:8434/A1-EI/v1/eijobs/job2/status
-{"eiJobStatus":"ENABLED"}
-````
+ ```
+ curl -k https://localhost:8434/A1-EI/v1/eijobs/job2/status
+ {"eiJobStatus":"ENABLED"}
+ ```
 
 ![](https://i.imgur.com/U7BLHD8.png)
 
 後續的 dmaapMediator Producer Container則因為port分配問題沒有run成功
+
 可能下一版本的release會更正
 
 ### Ports
