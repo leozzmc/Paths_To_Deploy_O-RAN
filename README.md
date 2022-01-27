@@ -416,13 +416,67 @@ control panel URL: http://localhost:8080/
 ![image](https://user-images.githubusercontent.com/30616512/151133084-13dd9743-7d06-4daa-a707-e5772f07ba44.png)
 
 
+#### **Run the App Catalogue Service Docker Container**
+```
+$ docker run --rm -p 8680:8680 -p 8633:8633 --network=nonrtric-docker-net --name=rapp-catalogue-service nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-r-app-catalogue:1.0.1
+```
+Verify that the service is up and running
+
+```
+$ curl localhost:8680/services
+```
+
+#### **Run the Helm Manager Docker Container**
+
+```
+$ cd <path-repos>/nonrtric/helm-manager
+$ docker run \
+    --rm  \
+    -it \
+    -p 8112:8083  \
+    --name helmmanagerservice \
+    --network nonrtric-docker-net \
+    -v $(pwd)/mnt/database:/var/helm-manager-service \
+    -v ~/.kube:/root/.kube \
+    -v ~/.helm:/root/.helm \
+    -v ~/.config/helm:/root/.config/helm \
+    -v ~/.cache/helm:/root/.cache/helm \
+    -v $(pwd)/config/application.yaml:/etc/app/helm-manager/application.yaml \
+    nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-helm-manager:1.1.0
+```
+會出現error
+**Connect to localhost:3904 failed: Connection refused**
+**ERROR 1 --- [pool-2-thread-1] c.a.n.c.c.i.CambriaSimplerBatchPublisher : PUB_CHRONIC_FAILURE: Send failure count is 59, above threshold 10.**
+而將問題在底下留言後他們的回覆是
+![image](https://user-images.githubusercontent.com/30616512/151308216-8e31ec6e-9de3-4eaa-8af2-e738d295a36c.png)
+大意是:
+- helm manager 在port 3904 上具有與dmaap message router的介面在
+- 但這個介面沒在使用且無法disable掉
+- 預設為localhost(容器內的)，因此內部的http call 在外部不可見
+- 先忽略此錯誤
+
+
+### Ports
+|Components |Port expose to localhost (http/https)|
+|-----------|-------------------------------------|
+|A1 Policy Management Service|8081/8443|
+|App Catalogue Service|8680/8633|
+|Dmaap Adaptor Service|	9087/9187|
+|Dmaap Mediator Producer|9085/9185|
+|Gateway|9090 (only http)|
+|Helm Manager|8112 (only http)|
+|Information Coordinator Service|8083/8434|
+|Near-RT RIC A1 Simulator|	8085/8185,  8086/8186, 8087/8187|
+|Non-RT RIC Control Panel|8080/8880|
+|SDNC A1-Controller|8282/8443|
+
 
 ### 實際部屬情況
 |Components|deployment|Description|
 |---------|---------|-------------|
-|App Catalogue Service*|❎|error: Connet to localhost:3904 failed: Connectionn refused|
-|Dmaap Adaptor Service|Not deploy yet||
-|Dmaap Mediator Producer|Not deploy yet||
+|App Catalogue Service*|❌|error: Connet to localhost:3904 failed: Connectionn refused|
+|Dmaap Adaptor Service|✅||
+|Dmaap Mediator Producer|❌|Ports are already allocated.|
 |Gateway*|✅|運作正常|
 |Near-RT RIC A1 Simulator|✅|運作正常|
 |Non-RT RIC Control Panel|✅|運作正常|
