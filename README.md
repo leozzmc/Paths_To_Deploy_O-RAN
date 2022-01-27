@@ -663,6 +663,7 @@ karaf type
 
 ## O1 Interface
 > Install : https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881890
+
 > Test: https://wiki.o-ran-sc.org/display/SMO/How+to+test+the+O1+interface
  
  
