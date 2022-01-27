@@ -727,7 +727,11 @@ Add Maintainenece
 
 ![image](https://user-images.githubusercontent.com/30616512/151319568-4732a483-a62f-40f0-aa51-b91aa938d018.png)
 
- 
+### **O-DU Slice Assurance usecase**
+> https://wiki.o-ran-sc.org/display/RICNR/O-DU+Slice+Assurance+usecase
+
+### **O-RU Fronthaul Recovery usecase**
+> https://wiki.o-ran-sc.org/display/RICNR/O-RU+Fronthaul+Recovery+usecase
 
 ## Near-RT-RIC
 這份pdf救了我
