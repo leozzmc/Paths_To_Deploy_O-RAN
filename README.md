@@ -733,6 +733,16 @@ Add Maintainenece
 ### **O-RU Fronthaul Recovery usecase**
 > https://wiki.o-ran-sc.org/display/RICNR/O-RU+Fronthaul+Recovery+usecase
 
+ 
+## O1 Testing
+ 
+## VES Collector 
+### Installation
+>　https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881888
+### Testing
+> https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881892
+### OAM
+ 
 ## Near-RT-RIC
 這份pdf救了我
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
