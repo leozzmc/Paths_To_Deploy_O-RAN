@@ -749,6 +749,10 @@ cd o1/
 
  
 ## OAM
+
+> E-Release中的OAM
+> https://wiki.o-ran-sc.org/display/OAM/E-Release#ERelease-Specifications
+
 ### VES Collector 
 ### Installation
 >　https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881888
