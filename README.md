@@ -769,12 +769,12 @@ cd o1/
 ```
 ./ves_start.sh
 ```
-但目前測試失敗
+
  
 ### Testing
 > https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881892
 
- 
+但目前測試失敗
  
 ### OAM
  
