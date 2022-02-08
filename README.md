@@ -746,8 +746,10 @@ cd o1/
 測試完無誤後可以將 `./run_test.sh` 底下關閉服務那邊註解調，就能啟用服務了
  
  
+
  
-## VES Collector 
+## OAM
+### VES Collector 
 ### Installation
 >　https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881888
  
@@ -775,8 +777,7 @@ cd o1/
 > https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881892
 
 但目前測試失敗
- 
-### OAM
+
  
 ## Near-RT-RIC
 這份pdf救了我
