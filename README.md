@@ -765,7 +765,12 @@ cd o1/
 
 ![image](https://user-images.githubusercontent.com/30616512/152935796-427272e3-0f93-4668-b921-63a2306bdccc.png)
 
-
+ 
+```
+./ves_start.sh
+```
+但目前測試失敗
+ 
 ### Testing
 > https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881892
 
