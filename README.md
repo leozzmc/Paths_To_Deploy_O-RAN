@@ -782,3 +782,7 @@ cd o1/
 ## Near-RT-RIC
 這份pdf救了我
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
+
+ 
+## Network Slice Use Cases
+> https://wiki.o-ran-sc.org/display/SIM/Network+Slicing+Use+Case
