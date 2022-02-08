@@ -752,10 +752,17 @@ cd o1/
 >　https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881888
  
 ![image](https://user-images.githubusercontent.com/30616512/152935932-20925f0e-aee3-47b6-ac75-66496f61a573.png)
-./ves-start.sh 之中的local_ip那，可自己手動key指令改
+
+! 上面的 `./ves-stop.sh` 也可先註解掉
+ 
+`./ves-start.sh` 之中的local_ip那，可自己手動key指令改
+
 ![image](https://user-images.githubusercontent.com/30616512/152935546-2ef99a14-f744-4703-aa07-952e8021f00f.png)
+
 ![image](https://user-images.githubusercontent.com/30616512/152935692-c3a1664f-aed7-4f49-b2ad-db2e92a25c34.png)
+
 選擇第一個VM介面
+
 ![image](https://user-images.githubusercontent.com/30616512/152935796-427272e3-0f93-4668-b921-63a2306bdccc.png)
 
 
