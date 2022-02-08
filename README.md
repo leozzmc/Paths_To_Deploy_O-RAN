@@ -735,12 +735,35 @@ Add Maintainenece
 
  
 ## O1 Testing
+>　https://wiki.o-ran-sc.org/display/SMO/How+to+test+the+O1+interface
+ 
+```
+git clone  https://gerrit.o-ran-sc.org/r/smo/o1.git
+cd o1/
+./run_tests.sh
+```
+ 
+測試完無誤後可以將 `./run_test.sh` 底下關閉服務那邊註解調，就能啟用服務了
+ 
+ 
  
 ## VES Collector 
 ### Installation
 >　https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881888
+ 
+![image](https://user-images.githubusercontent.com/30616512/152935932-20925f0e-aee3-47b6-ac75-66496f61a573.png)
+./ves-start.sh 之中的local_ip那，可自己手動key指令改
+![image](https://user-images.githubusercontent.com/30616512/152935546-2ef99a14-f744-4703-aa07-952e8021f00f.png)
+![image](https://user-images.githubusercontent.com/30616512/152935692-c3a1664f-aed7-4f49-b2ad-db2e92a25c34.png)
+選擇第一個VM介面
+![image](https://user-images.githubusercontent.com/30616512/152935796-427272e3-0f93-4668-b921-63a2306bdccc.png)
+
+
 ### Testing
 > https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881892
+
+ 
+ 
 ### OAM
  
 ## Near-RT-RIC
