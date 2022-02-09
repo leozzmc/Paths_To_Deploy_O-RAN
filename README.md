@@ -649,7 +649,7 @@ karaf type
 ### 實際部屬情況
 |Components|deployment|Description|
 |---------|---------|-------------|
-|App Catalogue Service*|❌|error: Connet to localhost:3904 failed: Connectionn refused|
+|App Catalogue Service*|✅||
 |Dmaap Adaptor Service|✅||
 |Dmaap Mediator Producer|❌|Ports are already allocated.|
 |Gateway*|✅|運作正常|
