@@ -784,7 +784,7 @@ cd o1/
 
  
 ## Near-RT-RIC
-這份pdf救了我
+非常有幫助的pdf
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
 
  
