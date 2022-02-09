@@ -660,6 +660,10 @@ karaf type
 
 ![map (6)](https://user-images.githubusercontent.com/30616512/151141547-64c91848-b332-449d-b492-ec45ffeed6f1.png)
  
+ 
+### Policy Delivery
+![Untitled Diagram drawio](https://user-images.githubusercontent.com/30616512/153117080-e3dadaea-b55d-47ed-94b5-d922188dc3be.png)
+
 
 ## O1 Interface
 > Install : https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881890
