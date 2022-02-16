@@ -792,6 +792,69 @@ cd o1/
 ## Near-RT-RIC
 非常有幫助的pdf
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
+ 
+
+## E2SIM
+
+ ```
+ git clone "https://gerrit.o-ran-sc.org/r/sim/e2-interface"
+ cd e2-interface/e2sim
+ ```
+ 
+ 下載dependencies
+ 
+ ```
+ sudo apt-get update
+ sudo apt install -y \
+   build-essential \
+   git   \
+   cmake \
+   libsctp-dev \
+   lksctp-tools \
+   autoconf \
+   automake \
+   libtool \
+   bison \
+   flex \
+   libboost-all-dev
+ 
+ sudo apt-get clean
+ ```
+ 
+ buiid E2SIM
+ 
+ ```
+ mkdir build
+ cd build
+ cmake ..
+ make package
+ cmake ..  -DDEV_PKG=1
+ make package
+ ```
+ 新增環境變數
+ 
+ ```
+ vim ~/.bashrc
+ 
+ #export E2SIM=<path_to_e2sim>
+ export E2SIM=/root/e2-interface/e2sim
+ ```
+ 
+ ```
+ cd  ../previous
+ ./build_e2sim
+ ```
+ 
+ 啟用 E2SIM
+ 
+ ```
+ cd /root/e2-interface/e2sim/previous/build 
+ ./e2sim [server ip] [port]
+ ex.
+ ./e2sim 127.0.0.1 36422
+ ```
+ ![image](https://user-images.githubusercontent.com/30616512/154240212-9c93ff64-6bee-44c2-81a5-8dd2f9c25c94.png)
+
 
  
 ## Network Slice Use Cases
