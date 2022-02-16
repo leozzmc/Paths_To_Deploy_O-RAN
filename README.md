@@ -630,6 +630,8 @@ karaf type
 後續的 dmaapMediator Producer Container則因為port分配問題沒有run成功
 
 可能下一版本的release會更正
+ 
+ > Dmaap 架構: https://wiki.onap.org/pages/viewpage.action?pageId=3247130
 
 ### Ports
 |Components |Port expose to localhost (http/https)|
