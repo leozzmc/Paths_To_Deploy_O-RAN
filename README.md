@@ -793,6 +793,83 @@ cd o1/
 非常有幫助的pdf
 > https://amslaurea.unibo.it/24128/1/Malpezzi_thesis_CORRECT.pdf
  
+首先需要新增一個Near-RT RIC的VM
+規格: 
+
+|資源|規格|
+|----|----|
+|CPU|8|
+|Memory|16GB|
+|Storage|160GB|
+|OS|Ubuntu 18.04 LTS|
+
+安裝必要元件 + 更新
+
+
+```=
+sudo -i
+sudo apt-get update
+sudo apt install -y vim git curl net-tools
+```
+ 
+下載repo
+
+
+```=
+git clone https://gerrit.o-ran-sc.org/r/dep
+cd dep/
+git submodule update --init --remote --recursive
+```
+ 
+安裝k8s節點
+
+```=
+
+cd ~/dep/tools/k8s/etc
+vim infra.rc
+
+將Kubernetes 版本改成 1.15.9
+
+
+cd .. /bin
+./gen-cloud-init.sh
+./k8s-.......
+```
+ 
+接下來就會一直安裝k8s，完成後會重新開機
+
+透過k8s指令來驗證是否安裝成功
+
+```=
+
+kubectl get pods --all-namespaces
+
+```
+
+接著要部屬near-rt ric 平台
+
+```
+
+ cd ~/dep/bin
+ 
+./deploy-ric-platform -f ../RECIPE/PLATFORM/example_recipe_oran_e_recipe.yaml
+
+```
+
+接著等待部屬
+
+接著驗證部屬是否成功
+
+```=
+
+kubectl get pod -n ricplt
+
+```
+
+![image](https://user-images.githubusercontent.com/30616512/155661066-ac40d027-ece8-4c55-bbe0-2a210c8d367c.png)
+
+ricplatform部屬成功
+
 
 ## E2SIM
 
