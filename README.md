@@ -871,8 +871,6 @@ kubectl get pod -n ricplt
 ricplatform部屬成功
  
 
-![image](https://user-images.githubusercontent.com/30616512/155709129-29d63efa-84eb-442d-a830-4c18dad8efbf.png)
-
 Before any xApp can be deployed, its Helm chart must be loaded into this private Helm repository.
  
 
