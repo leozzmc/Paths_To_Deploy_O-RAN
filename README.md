@@ -939,6 +939,13 @@ sudo chmod -R 755 /usr/local/lib/python3.6
 
 
 
+ ```
+ curl -X GET http://localhost:8080/api/charts/hwxapp/1.0.0
+ ```
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/155988361-94e48c42-7936-452d-8601-8cadee099141.png)
+
+
 ## E2SIM
 
  ```
