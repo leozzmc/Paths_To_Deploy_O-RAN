@@ -873,6 +873,72 @@ ricplatform部屬成功
 
 ![image](https://user-images.githubusercontent.com/30616512/155709129-29d63efa-84eb-442d-a830-4c18dad8efbf.png)
 
+Before any xApp can be deployed, its Helm chart must be loaded into this private Helm repository.
+ 
+
+```
+#Create a local helm repository with a port other than 8080 on host
+docker run --rm -u 0 -it -d -p 8080:8080 -e DEBUG=1 -e STORAGE=local -e STORAGE_LOCAL_ROOTDIR=/charts -v $(pwd)/charts:/charts chartmuseum/chartmuseum:latest 
+
+```
+ 
+Set up the environment variables for CLI connection using the same port as used above.
+ 
+```
+export CHART_REPO_URL=http://0.0.0.0:8080
+```
+ 
+ 
+ 
+Install dms_cli tool
+
+```
+#Git clone appmgr
+git clone "https://gerrit.o-ran-sc.org/r/ric-plt/appmgr"
+
+#Change dir to xapp_onboarder
+cd appmgr/xapp_orchestrater/dev/xapp_onboarder
+
+#If pip3 is not installed, install using the following command
+yum install python3-pip
+
+#In case dms_cli binary is already installed, it can be uninstalled using following command
+pip3 uninstall xapp_onboarder
+
+#Install xapp_onboarder using following command
+pip3 install ./
+ 
+```
+ 
+ 
+
+```
+sudo chmod 755 /usr/local/bin/dms_cli
+sudo chmod -R 755 /usr/local/lib/python3.6
+sudo chmod -R 755 /usr/local/lib/python3.6
+```
+ 
+ 
+
+ ```
+ dms_cli onboard CONFIG_FILE_PATH SCHEMA_FILE_PATH
+ 
+ dms_cli onboard /root/hw/init/config-file.json /root/hw/init/schema.json
+ 
+ ```
+ 
+ 
+![image](https://user-images.githubusercontent.com/30616512/155987660-0e25ce9c-a2e9-40c7-bd1d-a69bb12ef293.png)
+
+ 
+ 
+
+ ```
+ curl -X GET http://localhost:8080/api/charts | jq .
+ ```
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/155987523-2c69e40b-de46-4bb4-bfd7-6c15a82d8dbd.png)
+
 
 
 ## E2SIM
