@@ -869,6 +869,10 @@ kubectl get pod -n ricplt
 ![image](https://user-images.githubusercontent.com/30616512/155661066-ac40d027-ece8-4c55-bbe0-2a210c8d367c.png)
 
 ricplatform部屬成功
+ 
+
+![image](https://user-images.githubusercontent.com/30616512/155709129-29d63efa-84eb-442d-a830-4c18dad8efbf.png)
+
 
 
 ## E2SIM
