@@ -984,6 +984,25 @@ sudo chmod -R 755 /usr/local/lib/python3.6
  ![image](https://user-images.githubusercontent.com/30616512/158771584-4aa7c548-c678-478a-a218-ae00e767959d.png)
 
  
+ ![image](https://user-images.githubusercontent.com/30616512/158790171-f4f6c7ce-af09-49da-8ced-96f1b0f3b2ee.png)
+
+ 
+ 提供override file
+
+ ```
+ dms_cli install_values_yaml hwxapp 1.0.0 ricxapp --output_path=.
+ 
+ ```
+ 
+部屬xApp
+ 
+```
+dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
+```
+ 
+ 
+ 
+ 
  
 ## E2SIM
 
