@@ -916,6 +916,10 @@ sudo chmod -R 755 /usr/local/lib/python3.6
 sudo chmod -R 755 /usr/local/lib/python3.6
 ```
  
+ clone 所要部屬xApp的 repo
+ ```
+ git clone "https://gerrit.o-ran-sc.org/r/ric-app/hw"
+ ```
  
 
  ```
