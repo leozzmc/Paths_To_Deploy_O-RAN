@@ -1012,8 +1012,10 @@ dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
 
 ![image](https://user-images.githubusercontent.com/30616512/158814998-47a55cf6-2e9c-4ce6-b8d1-862fda0e572f.png)
 
+ `在docker login，並刪除pod重新建立replica時則運行成功`
  
- 
+ ![image](https://user-images.githubusercontent.com/30616512/158823398-cfda1cdf-973c-421b-b96c-15e6c2dcad0d.png)
+
  
 ## E2SIM
 
