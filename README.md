@@ -950,6 +950,18 @@ sudo chmod -R 755 /usr/local/lib/python3.6
  ![image](https://user-images.githubusercontent.com/30616512/155988361-94e48c42-7936-452d-8601-8cadee099141.png)
 
 
+ 
+ 下載Helm Charts
+
+ ```
+ dms_cli download_helm_chart <chart_name> <version> --output_path=<PATH>
+ ```
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/158763569-41341339-ac77-4294-8db5-0b2ce10cd4ab.png)
+
+ > 參考: https://wiki.o-ran-sc.org/display/RICA/Onboard+xApp
+ 
+ 
 ## E2SIM
 
  ```
