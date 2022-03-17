@@ -961,6 +961,29 @@ sudo chmod -R 755 /usr/local/lib/python3.6
 
  > 參考: https://wiki.o-ran-sc.org/display/RICA/Onboard+xApp
  
+ `接著需要部屬到appmgr，但還在找方法`
+ 
+ 
+ 接著嘗試不同xApp - Traffic Steering xApp
+ 
+ ```
+ git clone "https://gerrit.o-ran-sc.org/r/ric-app/ts"
+ ```
+ 
+ ```
+ dms_cli onboard /root/ts/xapp_descriptor/config.json /root/ts/xapp-descriptor/schema.json 
+ ```
+ ![image](https://user-images.githubusercontent.com/30616512/158771246-98280f44-3cfc-4b4e-982e-8277acbb282b.png)
+
+ 
+ 列出所onboard在 local helm chart的chart
+
+ ```
+ curl -X GET http://127.0.0.1:8080/api/charts | jq .
+ ```
+ ![image](https://user-images.githubusercontent.com/30616512/158771584-4aa7c548-c678-478a-a218-ae00e767959d.png)
+
+ 
  
 ## E2SIM
 
