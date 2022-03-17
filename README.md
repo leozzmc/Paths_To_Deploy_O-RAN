@@ -1003,6 +1003,15 @@ dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
 ![image](https://user-images.githubusercontent.com/30616512/158814797-8bd84ed6-f3a6-4ba2-bce7-fe0a1381feeb.png)
 
  `好像不用 overridefile...`
+
+檢查xapp是否被正確建立
+ 
+ ```
+ kubectl get pod -n ricxapp
+ ```
+
+![image](https://user-images.githubusercontent.com/30616512/158814998-47a55cf6-2e9c-4ce6-b8d1-862fda0e572f.png)
+
  
  
  
