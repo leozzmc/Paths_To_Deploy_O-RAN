@@ -1021,6 +1021,10 @@ dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
  ### AD
  
  schema 下載網址：https://wiki.o-ran-sc.org/display/RICA/Admission+Control+xApp?preview=/3605214/7274606/schema.json
+ 
+ AD 在 dsm_cli 部屬xApp出問題
+ ![image](https://user-images.githubusercontent.com/30616512/158948706-a726e672-9419-441f-814a-73a435948a1d.png)
+
 
  
 ## E2SIM
