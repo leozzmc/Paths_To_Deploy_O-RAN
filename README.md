@@ -1037,13 +1037,20 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
 
 ![123456](https://user-images.githubusercontent.com/30616512/158959503-a52a1769-858f-42ad-88af-098f84293293.PNG)
 
-
+ 
+ 
  
 → 若去get pod 發現 *Container Creating* 等太久，可以做兩件事
 
 1. docker login //因為可能是docker pull 超出限制
 
 2. 刪掉pod，反正deployment之中的replicas會重新建立一個新的pod
+ 
+3. 可以手動編譯 `docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-qp:0.0.4 .`
+ 
+可能會出現 COPY qp/ /qp Directory not found，這時就自己建一個qp/ 就好
+
+
 
  
 ## E2SIM
