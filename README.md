@@ -1035,7 +1035,8 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
  
 部屬成功畫面
 
-![image](https://user-images.githubusercontent.com/30616512/158959175-37e5c7d0-03b3-4268-9c6a-37f972195447.png
+![123456](https://user-images.githubusercontent.com/30616512/158959503-a52a1769-858f-42ad-88af-098f84293293.PNG)
+
 
  
 → 若去get pod 發現 *Container Creating* 等太久，可以做兩件事
