@@ -1016,16 +1016,22 @@ dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
  
  ![image](https://user-images.githubusercontent.com/30616512/158823398-cfda1cdf-973c-421b-b96c-15e6c2dcad0d.png)
  
- ## xApp
+## xApp
+  
+### AD
  
- ### AD
+schema 下載網址：https://wiki.o-ran-sc.org/display/RICA/Admission+Control+xApp?preview=/3605214/7274608/adm-ctrl-xapp-schema.json
  
- schema 下載網址：https://wiki.o-ran-sc.org/display/RICA/Admission+Control+xApp?preview=/3605214/7274608/adm-ctrl-xapp-schema.json
- 
- AD
- 
-![12](https://user-images.githubusercontent.com/30616512/158954234-402d066b-658b-462d-bb32-11b491f17743.PNG)
 
+![12](https://user-images.githubusercontent.com/30616512/158954234-402d066b-658b-462d-bb32-11b491f17743.PNG)
+ 
+
+### qp
+ 
+```
+schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-schema.json
+
+```
  
 ## E2SIM
 
