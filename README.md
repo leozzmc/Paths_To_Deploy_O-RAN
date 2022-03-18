@@ -1033,6 +1033,18 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
 
 ```
  
+部屬成功畫面
+
+![image](https://user-images.githubusercontent.com/30616512/158959175-37e5c7d0-03b3-4268-9c6a-37f972195447.png
+
+ 
+→ 若去get pod 發現 *Container Creating* 等太久，可以做兩件事
+
+1. docker login //因為可能是docker pull 超出限制
+
+2. 刪掉pod，反正deployment之中的replicas會重新建立一個新的pod
+
+ 
 ## E2SIM
 
  ```
