@@ -1015,6 +1015,12 @@ dms_cli install hwxapp 1.0.0 ricxapp --overridefile=./values.yaml
  `在docker login，並刪除pod重新建立replica時則運行成功`
  
  ![image](https://user-images.githubusercontent.com/30616512/158823398-cfda1cdf-973c-421b-b96c-15e6c2dcad0d.png)
+ 
+ ## xApp
+ 
+ ### AD
+ 
+ schema 下載網址：https://wiki.o-ran-sc.org/display/RICA/Admission+Control+xApp?preview=/3605214/7274606/schema.json
 
  
 ## E2SIM
