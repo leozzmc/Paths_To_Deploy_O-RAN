@@ -1185,6 +1185,10 @@ Solution
  ![image](https://user-images.githubusercontent.com/30616512/165144755-93cfad95-dc0b-4487-97fb-97ef4581dfb6.png)
 
  
+ 千辛萬苦 build 完後進行 tag
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165145333-ae7345d5-063f-46df-b194-54ddd646049e.png)
+
  
  
  
