@@ -1147,8 +1147,21 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
 
 ```
 git clone "https://gerrit.o-ran-sc.org/r/scp/ric-app/kpimon" 
+cd kpimon/
+docker build .
 ```
  
+在docker build 後會噴錯
+
+![image](https://user-images.githubusercontent.com/30616512/165124415-e953b95a-565e-4bee-bae1-faaab29428dd.png)
+
+
+Solution
+
+![image](https://user-images.githubusercontent.com/30616512/165124525-bcd799ec-ff78-4ebe-8549-f44a81fc41e1.png)
+
+ 
+
  
 ```
 tar zxvf xappkpimon-0.2.0.tgz
