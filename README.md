@@ -1202,3 +1202,15 @@ If Helm v3
 ```
 helm install xappkpimon . --namespace ricxapp
 ```
+ 
+若刪掉xapp deployment重裝則指令改為
+ 
+```
+helm upgrade --install xappkpimon . --namespace ricxapp
+ 
+```
+ 
+成功
+ 
+![image](https://user-images.githubusercontent.com/30616512/165146256-e15b81f3-a42e-49ee-8aa2-753bb5ff4ecc.png)
+
