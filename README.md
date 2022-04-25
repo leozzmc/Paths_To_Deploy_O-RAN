@@ -1174,6 +1174,8 @@ Solution
  
  因此要根據Solution中提供的網址(為Dockerfile) 手動build並tag成 `nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-ubuntu20-c-go:1.0.0`，再變更Dockerfile中的base image
  
+ 已經將所需的Dockerfile 放在本repo中的 `/needed_dockerfile/baseimage` 之中了
+ 
  
  
 ```
