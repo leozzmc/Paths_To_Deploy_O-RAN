@@ -1176,6 +1176,16 @@ Solution
  
  已經將所需的Dockerfile 放在本repo中的 `/needed_dockerfile/baseimage` 之中了
  
+ 這時會噴新錯誤
+
+ ![image](https://user-images.githubusercontent.com/30616512/165138745-b80189bc-ab4c-40d6-89d5-05340c5e1509.png)
+
+ Solution
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165144755-93cfad95-dc0b-4487-97fb-97ef4581dfb6.png)
+
+ 
+ 
  
  
 ```
