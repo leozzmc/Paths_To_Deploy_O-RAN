@@ -1160,7 +1160,7 @@ Solution
 
 ![image](https://user-images.githubusercontent.com/30616512/165124525-bcd799ec-ff78-4ebe-8549-f44a81fc41e1.png)
 
- 
+ 但解法其實更簡單，去 Dockerfile中把BaseImage的por從10004改成10002
 
  
 ```
