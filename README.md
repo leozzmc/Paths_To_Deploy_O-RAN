@@ -1170,6 +1170,10 @@ Solution
  
  ![image](https://user-images.githubusercontent.com/30616512/165129343-ad008971-a356-493d-9fa5-a46b655a9618.png)
 
+ 但若直接 `docker pull  nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-ubuntu20-c-go:1.0.0` 會有問題
+ 
+ 因此要根據Solution中提供的網址(為Dockerfile) 手動build並tag成 `nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-ubuntu20-c-go:1.0.0`，再變更Dockerfile中的base image
+ 
  
  
 ```
