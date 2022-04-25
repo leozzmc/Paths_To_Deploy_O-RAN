@@ -1,0 +1,93 @@
+   1 # O-RAN-SC
+   2 #
+   3 # Copyright (C) 2019-2020 AT&T Intellectual Property and Nokia
+   4 #
+   5 # Licensed under the Apache License, Version 2.0 (the "License");
+   6 # you may not use this file except in compliance with the License.
+   7 # You may obtain a copy of the License at
+   8 #
+   9 #      http://www.apache.org/licenses/LICENSE-2.0
+  10 #
+  11 # Unless required by applicable law or agreed to in writing, software
+  12 # distributed under the License is distributed on an "AS IS" BASIS,
+  13 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  14 # See the License for the specific language governing permissions and
+  15 # limitations under the License.
+  16 
+  17 # Builder image with superset of CI tools for RIC components
+  18 
+  19 FROM nexus3.o-ran-sc.org:10001/ubuntu:20.04
+  20 
+  21 ARG DEBIAN_FRONTEND=noninteractive
+  22 
+  23 RUN apt-get update && apt-get install -y \
+  24     alien \
+  25     autoconf \
+  26     autoconf-archive \
+  27     automake \
+  28     autotools-dev \
+  29     build-essential \
+  30     cmake \
+  31     g++  \
+  32     gcc \
+  33     git \
+  34     ksh \
+  35     libbz2-dev \
+  36     libicu-dev \
+  37     libsctp-dev \
+  38     libtool \
+  39     lksctp-tools \
+  40     make \
+  41     python-dev \
+  42     pkg-config \
+  43     software-properties-common \
+  44     sudo \
+  45     wget \
+  46     zlib1g \
+  47     zlib1g-dev \
+  48     zlibc \
+  49     zip \
+  50     libboost-all-dev
+  51 
+  52 WORKDIR /tmp
+  53 
+  54 # Install go versions in /opt
+  55 RUN mkdir -p /opt/go
+  56 
+  57 
+  58 ARG g16="1.16.4"
+  59 RUN wget -nv https://dl.google.com/go/go${g16}.linux-amd64.tar.gz \
+  60     && tar -xf go${g16}.linux-amd64.tar.gz \
+  61     && mv go /opt/go/1.16 \
+  62     && rm -f go*.gz
+  63 
+  64 ARG g17="1.17.1"
+  65 RUN wget -nv https://dl.google.com/go/go${g17}.linux-amd64.tar.gz \
+  66     && tar -xf go${g17}.linux-amd64.tar.gz \
+  67     && mv go /opt/go/1.17 \
+  68     && rm -f go*.gz
+  69 
+  70 # Default path has go version 1.16.x
+  71 # Use /opt/go/1.16/bin for version 1.16.x
+  72 # Use /opt/go/1.17/bin for version 1.17.x
+  73 ARG GOVERSION=1.16
+  74 ENV GOPATH=/root/go
+  75 ENV DEFAULTPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  76 ENV PATH=$DEFAULTPATH:/usr/local/go/bin:/opt/go/${GOVERSION}/bin:$GOPATH/bin
+  77 
+  78 # This installs go-acc to GOPATH
+  79 RUN go version; \
+  80     export GOBIN=/usr/local/bin/; export GO111MODULE=on;\
+  81     go get -v github.com/ory/go-acc \
+  82     && go-acc --help
+  83 
+  84 # sonar-scanner is not available in ubuntu repo
+  85 ARG sv="4.2.0.1873"
+  86 RUN wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${sv}-linux.zip \
+  87     && unzip sonar-scanner-cli-${sv}-linux.zip \
+  88     && mv sonar-scanner-${sv}-linux /usr/local/sonar-scanner \
+  89     && rm -f sonar*.zip
+  90 
+  91 # golangci-lint is not available in ubuntu repo
+  92 RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $GOPATH/bin v1.23.6 \
+  93     && rm -f install.sh
