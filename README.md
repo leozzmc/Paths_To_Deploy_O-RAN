@@ -1114,7 +1114,29 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
  ```
  ![image](https://user-images.githubusercontent.com/30616512/154240212-9c93ff64-6bee-44c2-81a5-8dd2f9c25c94.png)
 
+ 教學: https://wiki.o-ran-sc.org/display/IAT/Traffic+Steering+Flows
+ 
+ 其中在做做helm install時，Helm3因改為
+ 
+ ```
+ helm install e2sim helm --name ricplt
+ ```
+ 
+ 接著可在 `ricplt` namespace之中看見 e2sim pod
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165115502-c6b7c3b6-6917-4ba5-8478-a0319b122e00.png)
 
+ 查看該pod的log
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165115793-c9448ddf-18c5-4fca-9ca5-ea06376c19d4.png)
+
+ ![image](https://user-images.githubusercontent.com/30616512/165115849-ba851dc0-04db-4158-8584-112f04b3cf08.png)
+
+ ![image](https://user-images.githubusercontent.com/30616512/165115933-6b3ef25a-3678-4930-95c6-b51c3c3680ab.png)
+
+分別為 E2SIM 到 E2TERM 的請求以及E2SIM到e2sim的回覆
+ 
+ 
  
 ## Network Slice Use Cases
 > https://wiki.o-ran-sc.org/display/SIM/Network+Slicing+Use+Case
