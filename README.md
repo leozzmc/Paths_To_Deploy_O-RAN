@@ -1146,6 +1146,11 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
  
 
 ```
+git clone "https://gerrit.o-ran-sc.org/r/scp/ric-app/kpimon" 
+```
+ 
+ 
+```
 tar zxvf xappkpimon-0.2.0.tgz
 cd xappkpimon/
 ```
