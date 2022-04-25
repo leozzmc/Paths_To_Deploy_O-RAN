@@ -1140,3 +1140,18 @@ schema path： /appmgr/xapp_orchestrater/dev/docs/xapp_onboarder/guide/embedded-
  
 ## Network Slice Use Cases
 > https://wiki.o-ran-sc.org/display/SIM/Network+Slicing+Use+Case
+
+ 
+## 部屬Kpimon xApp
+ 
+
+```
+tar zxvf xappkpimon-0.2.0.tgz
+cd xappkpimon/
+```
+ 
+If Helm v3
+
+```
+helm install xappkpimon . --namespace ricxapp
+```
