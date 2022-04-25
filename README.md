@@ -1162,6 +1162,15 @@ Solution
 
  但解法其實更簡單，去 Dockerfile中把BaseImage的por從10004改成10002
 
+ build途中會產生問題
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165129287-184ef308-5849-4da1-adb4-0d8e291b1a83.png)
+
+ Solution
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165129343-ad008971-a356-493d-9fa5-a46b655a9618.png)
+
+ 
  
 ```
 tar zxvf xappkpimon-0.2.0.tgz
