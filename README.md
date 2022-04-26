@@ -1215,9 +1215,21 @@ helm upgrade --install xappkpimon . --namespace ricxapp
 ![image](https://user-images.githubusercontent.com/30616512/165146256-e15b81f3-a42e-49ee-8aa2-753bb5ff4ecc.png)
 
  
-[更新]
+### [KPIMON部屬更新]
 
 kpimon 部屬大全
 
 ![image](https://user-images.githubusercontent.com/30616512/165261157-59716f00-81aa-4a37-a662-1a11869bd6a9.png)
+ 
+部屬完後接著依序部屬 `trafficxapp` , `qp-driver xapp`, `qp xapp`
+
+需求版本
+ 
+|xApp|version|
+|----|-------|
+|trafficxapp|1.2.1|
+|qp-driver|1.0.9|
+|qp|0.0.3|
+ 
+
 
