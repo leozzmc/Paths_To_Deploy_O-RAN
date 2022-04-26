@@ -1295,4 +1295,13 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
 ![image](https://user-images.githubusercontent.com/30616512/165298450-1e08ec09-789d-45a2-b2fa-a65a21c4851c.png)
 
 
+ ### Create Policy
+ 
+ ```
+ curl -X PUT --header "Content-Type: application/json" --data "{\"threshold\" : 5}" http://<Base URL for Kong>/a1mediator/a1-p/policytypes/20008/policies/tsapolicy145
+ ```
+
+ 成功則回傳一個 `""`
+ 
+ 
  
