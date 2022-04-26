@@ -1232,4 +1232,9 @@ kpimon 部屬大全
 |qp|0.0.3|
  
 
+版本需至每個xApp repo中的 `xapp-descriptor/config.json` 之中修改成所需版本
+ 
+接著就依序onboard
 
+> ⚠ 若有刪除某個 xApp的deployment，再次重新部署會噴錯(ex. ...name cannot re-use....)
+這時只要 `dms_cli uninstall [xApp_name] [namespace]` 接著再次重裝就不會噴錯
