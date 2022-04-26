@@ -1294,7 +1294,8 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
 
 ![image](https://user-images.githubusercontent.com/30616512/165298450-1e08ec09-789d-45a2-b2fa-a65a21c4851c.png)
 
-
+ 
+ 
  ### Create Policy
  
  ```
@@ -1303,5 +1304,26 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
 
  成功則回傳一個 `""`
  
+ 
+ 完成後
+ 
+ 需確認 `ricplt` namespace之中有 15個Pod全部狀態為 `Running`
+ 
+ 若 `e2term` 出問題請將 e2term所有資源刪除，在去 ~/dep/ric-dep/e2term/
+ 
+ ```
+ helm install r4-e2term . --namespace ricplt
+ ```
+ 若報錯，則可能為資源沒刪光
+ 
+ 重啟後，確認 `e2term` deployment 有跑起來
+ 
+ 接著 e2sim 應該會 `Crashloopback` ，此時也將 e2sim deployment 刪掉
+ 
+ 
+ 去 /e2-interface/ 中將 Dockfile 中的e2term-sctp-alpha service ip 改成新的ip
+ 
+ 接著重build image (原image: e2simul 也要刪除)
+
  
  
