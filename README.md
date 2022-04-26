@@ -1253,3 +1253,46 @@ dms_cli install qp 0.0.3 ricxapp
 
 ![image](https://user-images.githubusercontent.com/30616512/165294678-3abe1d9d-2cf5-4cad-b10a-b21f6879fd45.png)
 
+### Create Policy Type
+ 
+先建立 create.json
+ 
+
+```
+{"name" : "tsapolicy", "description" : "tsa parameters", "policy_type_id" : 20008, "create_schema" : { "$schema" : "http://json-schema.org/draft-07/schema#", "type" : "object", "properties" : { "threshold" : { "type" : "integer", "default" : 0 } }, "additionalProperties" : false } }
+```
+
+接著先找到 kong的svc ip
+
+```
+kubectl get svc -n ricplt | grep kong
+```
+
+上傳Policy Type
+
+```
+curl -X PUT --header "Content-Type: application/json"  --data-binary @create.json   http://<Base URL for Kong>/a1mediator/a1-p/policytypes/20008
+```
+
+倘若無法存取，可先由kong endpoint 試試
+
+```
+kubectl get ep -n ricplt | grep kong
+```
+
+![image](https://user-images.githubusercontent.com/30616512/165298142-7bef37ec-8624-430b-a5b4-9a465bfd13c3.png)
+ 
+一樣上傳 Policy Type
+
+```
+curl -X PUT --header "Content-Type: application/json"  --data-binary @create.json   http://10.244.0.20:32080/a1mediator/a1-p/policytypes/20008
+```
+
+回傳一個 `""`
+ 
+接著去GET看看是否有上傳成功
+
+![image](https://user-images.githubusercontent.com/30616512/165298450-1e08ec09-789d-45a2-b2fa-a65a21c4851c.png)
+
+
+ 
