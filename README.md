@@ -1309,7 +1309,7 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
  
  需確認 `ricplt` namespace之中有 15個Pod全部狀態為 `Running`
  
- 若 `e2term` 出問題請將 e2term所有資源刪除，在去 ~/dep/ric-dep/e2term/
+ ⛔若 `e2term` 出問題請將 e2term所有資源刪除，在去 ~/dep/ric-dep/e2term/
  
  ```
  helm install r4-e2term . --namespace ricplt
@@ -1321,9 +1321,18 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
  接著 e2sim 應該會 `Crashloopback` ，此時也將 e2sim deployment 刪掉
  
  
- 去 /e2-interface/ 中將 Dockfile 中的e2term-sctp-alpha service ip 改成新的ip
+ 去 `/e2-interface/e2sim/e2sm_examples/kpm_e2sm` 中將 Dockfile 中的e2term-sctp-alpha service ip 改成新的ip
+ 
+ 透過 `kubectl get service -n ricplt -n ricplt` 去查詢
  
  接著重build image (原image: e2simul 也要刪除)
+ 
+ ```
+ docker rmi -f [image_name]
+ cd ~/e2-interface/e2sim/e2sm_examples/kpm_e2sm 
+ docker build .
+ ```
 
+ 
  
  
