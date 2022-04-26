@@ -1214,3 +1214,10 @@ helm upgrade --install xappkpimon . --namespace ricxapp
  
 ![image](https://user-images.githubusercontent.com/30616512/165146256-e15b81f3-a42e-49ee-8aa2-753bb5ff4ecc.png)
 
+ 
+[更新]
+
+kpimon 部屬大全
+
+![image](https://user-images.githubusercontent.com/30616512/165261157-59716f00-81aa-4a37-a662-1a11869bd6a9.png)
+
