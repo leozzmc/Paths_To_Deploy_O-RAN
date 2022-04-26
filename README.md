@@ -1238,3 +1238,18 @@ kpimon 部屬大全
 
 > ⚠ 若有刪除某個 xApp的deployment，再次重新部署會噴錯(ex. ...name cannot re-use....)
 這時只要 `dms_cli uninstall [xApp_name] [namespace]` 接著再次重裝就不會噴錯
+ 
+```
+dms_cli onboard [path/to/config.json] [/path/to/schema.json]
+```
+接著依序安裝
+
+
+```
+dms_cli install trafficxapp 1.2.1 ricxapp
+dms_cli install qpdriver 1.0.9 ricxapp
+dms_cli install qp 0.0.3 ricxapp
+```
+
+![image](https://user-images.githubusercontent.com/30616512/165294678-3abe1d9d-2cf5-4cad-b10a-b21f6879fd45.png)
+
