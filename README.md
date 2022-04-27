@@ -1332,6 +1332,11 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
  cd ~/e2-interface/e2sim/e2sm_examples/kpm_e2sm 
  docker build .
  ```
+ 
+ 若 **E2TERM** 出問題
+ 
+ ![image](https://user-images.githubusercontent.com/30616512/165453804-ef2f42c6-2d7b-4a43-80ba-fcabbc338917.png)
+
 
  
  
