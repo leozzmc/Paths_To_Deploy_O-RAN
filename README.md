@@ -1338,6 +1338,8 @@ curl -X PUT --header "Content-Type: application/json"  --data-binary @create.jso
  ![image](https://user-images.githubusercontent.com/30616512/165453804-ef2f42c6-2d7b-4a43-80ba-fcabbc338917.png)
 
 
- 
+ ## Anomaly Detection Use Case
+ 參考我寫的部屬紀錄
+ https://hackmd.io/QhDdyNCET4-G75Vy6WI6mg
  
  
