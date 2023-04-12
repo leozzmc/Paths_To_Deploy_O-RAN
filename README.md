@@ -7,13 +7,13 @@
 ```=
 SMO:
 - CPU: 4
-- Mem: 16GB
+- Mem: 32GB
 - Storage: 160GB
 - OS: Ubuntu 18.04 LTS
 
 Near-RT RIC
 - CPU: 4
-- Mem: 32GB
+- Mem: 16GB
 - Storage: 160GB
 - OS: Ubuntu 18.04 LTS
 ```
